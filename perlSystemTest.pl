@@ -9,6 +9,7 @@ my %config;
 
 $config{'CVSUser'} = "docT";
 $config{'CVSPass'} = "12345";
+$config{'CVSServer'} = "lalal.de";
 
 GetOptions (
   "help|h"             => sub{ Usage(); },
@@ -22,6 +23,15 @@ if ( $config{'Version'} ){
 
 sub getCVS {
 	print "get cvs Version:$config{'Version'} \n";
+	my  $CVSlogin = sprintf(
+		"cvs -d :pserver:%s:%s@%s:/usr/local/cvs login",
+		$config{'CVSUser'},
+		$config{'CVSPass'},
+		$config{'CVSServer'}
+	);
+	
+	print $CVSlogin."\n";
+	#system("mkdir test");
 }
 
 sub doGit {
