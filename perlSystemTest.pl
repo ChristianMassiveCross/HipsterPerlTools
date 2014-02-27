@@ -18,14 +18,14 @@ GetOptions (
 );
 
 if ( $config{'Version'} ){
-	getCVS();
-	doCleanUp();
-	doGit();
+	GetCVS();
+	DoCleanUp();
+	DoGit();
 }else{
 	Usage();
 }
 # ---------------------------------------------------------------------
-sub getCVS {
+sub GetCVS {
 	print "### get cvs Version:$config{'Version'} ###\n";
 	my  $CVSlogin = sprintf(
 		"cvs -d :pserver:%s:%s@%s:%s login",
@@ -41,23 +41,23 @@ sub getCVS {
 	#system("mkdir test");
 }
 # ---------------------------------------------------------------------
-sub doCleanUp{
+sub DoCleanUp{
 	print "### cleanUp CVS checkout ###\n";
-	deletePath('training folders');
-	deletePath('RnD folders');
-	deletePath('c folders'); 
+	DeletePath('training folders');
+	DeletePath('RnD folders');
+	DeletePath('c folders'); 
 
 }
 # ---------------------------------------------------------------------
-sub deletePath{
+sub DeletePath{
 	my ($path) = @_;
 	print "remove: $path\n";
-	my $deleteCommand "rm -fR $path";
+	my $deleteCommand = "rm -fR $path";
 	print $deleteCommand;
 	#system($deleteCommand);
 }
 # ---------------------------------------------------------------------
-sub doGit {
+sub DoGit {
 	print "### sync to git ###\n";
 	# open Questions:
 	# - how make/proof git login
