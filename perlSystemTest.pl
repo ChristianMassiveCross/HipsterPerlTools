@@ -52,7 +52,9 @@ sub doCleanUp{
 sub deletePath{
 	my ($path) = @_;
 	print "remove: $path\n";
-	print "rm -fR $path \n";
+	my $deleteCommand "rm -fR $path";
+	print $deleteCommand;
+	#system($deleteCommand);
 }
 # ---------------------------------------------------------------------
 sub doGit {
