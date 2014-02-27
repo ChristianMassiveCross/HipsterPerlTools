@@ -21,8 +21,10 @@ if ( $config{'Version'} ){
 	getCVS();
 	doCleanUp();
 	doGit();
+}else{
+	Usage();
 }
-
+# ---------------------------------------------------------------------
 sub getCVS {
 	print "### get cvs Version:$config{'Version'} ###\n";
 	my  $CVSlogin = sprintf(
@@ -38,18 +40,39 @@ sub getCVS {
 	print " checkout branch\n";
 	#system("mkdir test");
 }
+# ---------------------------------------------------------------------
 sub doCleanUp{
 	print "### cleanUp CVS checkout ###\n";
-	print "remove c binaries\n";
-	print "remove training\n";
-	print "remove RnD\n";
+	deletePath('training folders');
+	deletePath('RnD folders');
+	deletePath('c folders'); 
 
 }
+# ---------------------------------------------------------------------
+sub deletePath{
+	my ($path) = @_;
+	print "remove: $path\n";
+	print "rm -fR $path \n";
+}
+# ---------------------------------------------------------------------
 sub doGit {
 	print "### sync to git ###\n";
+	# open Questions:
+	# - how make/proof git login
+	# - whats about the right repro  Dist::Zilla::Plugin::Git:??
 	print "git -A\n";
 	print "git commit -m '$config{'Version'}'\n";
 	print "git push origin master\n";
 }
+# ---------------------------------------------------------------------
+sub Usage {
 
+print <<END;
+Usage:
+perl perlSystemTest.pl -v="1.23.4"
+check for:
+\t cvs stuff
+\t git stuff
+END
+}
 1;
